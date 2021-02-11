@@ -20,13 +20,17 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     
+    # Apss URLS
+    path('', include('home.urls')),
+    path('profile', include('profiles.urls')),
+    
     # DJRESTAUTH
     # path('api-auth/', include('rest_framework.urls')),
     path('rest-auth/', include('dj_rest_auth.urls')),
     path('rest-auth/registration/', include('dj_rest_auth.registration.urls')),   
 
     # AllAuth
-    path('', include('allauth.urls')),
+    path('account/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
