@@ -29,6 +29,11 @@ SECRET_KEY = env('SECRET_KEY')
 # Application definition
 
 INSTALLED_APPS = [
+    # Apps
+    'home',
+    'profiles.apps.ProfilesConfig',
+    'posts',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,8 +59,9 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-LOGIN_URL = "/"
-LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "account_login"
+LOGIN_REDIRECT_URL = "profile"
+LOGOUT_REDIRECT_URL = "account_login"
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -69,6 +75,16 @@ REST_FRAMEWORK = {
     ],
     
 }
+
+REST_AUTH_SERIALIZERS = {
+    #'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'profiles.api.serializers.UserSerializer',
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    #'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
+}
+
 
 # ALLAuth Settings
 AUTHENTICATION_BACKENDS = [
@@ -87,11 +103,11 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = LOGIN_REDIRECT_URL
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "optional" # "mandatory" | "optional" |  "none"
+ACCOUNT_EMAIL_VERIFICATION = "none" # "mandatory" | "optional" |  "none"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "Soxial"
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 180 # Disabled when ACCOUNT_EMAIL_CONFIRMATION_HMAC is True
 ACCOUNT_EMAIL_MAX_LENGTH = 254
-ACCOUNT_MAX_EMAIL_ADDRESSES = 9
+ACCOUNT_MAX_EMAIL_ADDRESSES = 1
 
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
@@ -99,7 +115,7 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_LOGOUT_ON_GET = False
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = False
-ACCOUNT_LOGOUT_REDIRECT_URL = "login"
+ACCOUNT_LOGOUT_REDIRECT_URL = LOGOUT_REDIRECT_URL
 
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = False
 ACCOUNT_PRESERVE_USERNAME_CASING = False
@@ -226,9 +242,9 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = os.path.join(BASE_DIR, 'soxial', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(PROJECT_DIR, 'soxial', 'static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'soxial', 'static'),]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'soxial', 'media')
 MEDIA_URL = '/media/'
