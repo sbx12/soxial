@@ -22,7 +22,8 @@ urlpatterns = [
     
     # Apss URLS
     path('', include('home.urls')),
-    path('profile', include('profiles.urls')),
+    path('profile/', include('profiles.urls')),
+    path('api/v1/post/', include('posts.api.urls')),
     
     # DJRESTAUTH
     # path('api-auth/', include('rest_framework.urls')),
