@@ -13,18 +13,23 @@ class ProfileSerializer(serializers.ModelSerializer):
         exclude = ['user', 'created_on', 'updated_on']
         
 
+class ProfileMinSerialzer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['id', 'profile_image']
+        
+
 class EmailAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmailAddress
         exclude = ['user']
 
 
-class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(many=False)
-    emailaddress_set = EmailAddressSerializer(many=True)
+class UserMinSerializer(serializers.ModelSerializer):
+    profile = ProfileMinSerialzer(many=False)
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'profile', 'emailaddress_set']
+        fields = ['id', 'username', 'profile']
         
 
 
