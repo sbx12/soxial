@@ -20,15 +20,16 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    # Apss URLS
+    # Apps URLS
     path('', include('home.urls')),
     path('profile/', include('profiles.urls')),
+    path('api/v1/profile/', include('profiles.api.urls')),
     path('api/v1/post/', include('posts.api.urls')),
     
     # DJRESTAUTH
     # path('api-auth/', include('rest_framework.urls')),
-    path('rest-auth/', include('dj_rest_auth.urls')),
-    path('rest-auth/registration/', include('dj_rest_auth.registration.urls')),   
+    path('rest-auth/api/v1/account/', include('dj_rest_auth.urls')),
+    path('rest-auth/api/v1/registration/', include('dj_rest_auth.registration.urls')),   
 
     # AllAuth
     path('account/', include('allauth.urls')),
