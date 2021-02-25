@@ -11,9 +11,6 @@ from rest_framework.test import APITestCase
 from django.contrib.auth import get_user_model
 from posts.models import Post, Comment, Tag
 
-# Serialzer
-from posts.api.serializers import PostSerializer
-
 IMAGE_URL = "M:\Coding\Django\Soxial\soxial\soxial\media\profile\images\Kidrobot.jpeg"
 MOCK_IMAGE = tempfile.NamedTemporaryFile(suffix=".jpg").name
 DESCRIPTION = "lorem ep sum"

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'home',
     'profiles.apps.ProfilesConfig',
     'posts',
+    'friends',
     
     'django.contrib.admin',
     'django.contrib.auth',
