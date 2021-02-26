@@ -29,6 +29,8 @@ class Friend(models.Model):
     to_user = models.ForeignKey(USER_MODEL, on_delete=models.CASCADE, related_name="friends")
     created_on = models.DateTimeField("Created on", auto_now_add=True)
     
+    objects = FriendManager()
+    
     class Meta:
         verbose_name = "Friend"
         verbose_name_plural = "Friends"
@@ -66,14 +68,14 @@ class FriendRequest(models.Model):
         
         # Delete Friend Request since its no longer in use
         self.delete()
+        print("accept friend request")
         
     def reject(self):
         """ Reject Friend Request """
         self.delete()
-        
+        print("reject friend request")
+
     def cancel(self):
         """ Cancel Friend Request """
         self.delete()
-        
-    
-        
+        print("cancel friend request")

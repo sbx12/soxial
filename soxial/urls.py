@@ -25,6 +25,7 @@ urlpatterns = [
     path('profile/', include('profiles.urls')),
     path('api/v1/profile/', include('profiles.api.urls')),
     path('api/v1/post/', include('posts.api.urls')),
+    path('api/v1/friends/', include('friends.api.urls')),
     
     # DJRESTAUTH
     # path('api-auth/', include('rest_framework.urls')),
