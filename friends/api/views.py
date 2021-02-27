@@ -25,8 +25,13 @@ class FriendList(generics.ListAPIView):
         return Response(serializer.data)
     
 
-class FriendDetail(generics.DestroyAPIView):
-     serializer_class = FriendSerializer
+class FriendDetail(APIView):
+    """GET and PUT and Delete for Single Friend Object"""
+    def delete(self, request, pk, format=None):
+        print("API: Delete Selected Friend")
+        friend = get_object_or_404(User.objects.all(), id=pk)
+        Friend.objects.delete_friends(self.request.user, friend)
+        return Response(status=status.HTTP_200_OK)
         
 
 class FriendRequestList(generics.ListAPIView):
@@ -38,9 +43,9 @@ class FriendRequestList(generics.ListAPIView):
         return Response(serializer.data)
     
     
-class FriendSentRequestList(APIView):
+class FriendSentRequestList(generics.ListAPIView):
     """ Get All of Users Sent Friend Request """
-    def post(self, request):
+    def list(self, request):
         print("API: Get User Sent Friend Request")
         queryset = get_list_or_404(Friend.objects.get_sent_requests(self.request.user))
         serializer = FriendRequestSerializer(queryset, many=True)
@@ -62,8 +67,9 @@ class FriendRequestDetail(APIView):
     def put(self, request, pk, format=None):
         print("API: Update Selected Friend Request")
         friend_request = get_object_or_404(FriendRequest.objects.all(), id=pk)
-        if request.data['accept'] == True:
+        if request.data['accept'] == 'True':
             friend_request.accept()
+            return Response(status=status.HTTP_201_CREATED)
         else:
             friend_request.reject()
         return Response(status=status.HTTP_200_OK)
