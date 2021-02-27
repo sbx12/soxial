@@ -12,7 +12,7 @@ USER_MODEL = get_user_model()
 class FriendManager(models.Manager):
     """ Friend Manager """
     def get_friends(self, user):
-        return self.filter(to_user=user
+        return self.filter(from_user=user
             ).select_related("from_user", "to_user")
         
     def get_requests(self, user):
@@ -22,6 +22,11 @@ class FriendManager(models.Manager):
     def get_sent_requests(self, user):
         return FriendRequest.objects.filter(from_user=user
             ).select_related("from_user", "to_user")
+        
+    def delete_friends(self, user, friend):
+        Friend.objects.filter(from_user=user, to_user=friend).delete()
+        Friend.objects.filter(from_user=friend, to_user=user).delete()
+        return True
 
 class Friend(models.Model):
     """Used to for Friend Connection"""
@@ -64,7 +69,7 @@ class FriendRequest(models.Model):
         # Create an Friend object for both users
         Friend.objects.create(from_user=self.from_user, to_user=self.to_user)
         
-        Friend.objects.create(from_user=self.from_user, to_user=self.to_user)
+        Friend.objects.create(from_user=self.to_user, to_user=self.from_user)
         
         # Delete Friend Request since its no longer in use
         self.delete()
