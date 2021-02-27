@@ -9,7 +9,7 @@ from profiles.api.serializers import UserMinSerializer
 
 
 class FriendSerializer(serializers.ModelSerializer):
-    to_user = UserMinSerializer(many=True)
+    to_user = UserMinSerializer(many=False)
     
     class Meta:
         model = Friend
@@ -18,8 +18,8 @@ class FriendSerializer(serializers.ModelSerializer):
         
         
 class FriendRequestSerializer(serializers.ModelSerializer):
-    from_user = UserMinSerializer(many=True)
-    to_user = UserMinSerializer(many=True)
+    from_user = UserMinSerializer(many=False)
+    to_user = UserMinSerializer(many=False)
     
     class Meta:
         model = FriendRequest
