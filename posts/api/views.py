@@ -21,7 +21,17 @@ class PostList(generics.ListAPIView):
     """List all Posts"""
     queryset = Post.objects.get_posts()
     serializer_class = PostSerializer
+    
 
+class PostProfileList(generics.ListAPIView):
+    queryset = Post.objects.get_posts()
+    
+    """List all USER Posts"""
+    def list(self, request):
+        print("API: Get Profile Post List")
+        queryset = get_list_or_404(self.get_queryset().filter(id=self.request.user.pk))
+        serializer = PostSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class PostCreate(generics.CreateAPIView):
     serializer_class = PostFormSerializer

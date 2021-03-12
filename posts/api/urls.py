@@ -4,6 +4,7 @@ from posts.api import views
 
 urlpatterns = [
     path('', views.PostList.as_view(), name="list-posts"),
+    path('user', views.PostProfileList.as_view(), name="list-user-posts"),
     path('create', views.PostCreate.as_view(), name="create-posts"),
     path('<int:pk>/', views.PostDetail.as_view(), name="detail-posts"),
     path('<int:pk>/powerup', views.PostPowerup.as_view(), name="powerup-posts"),
