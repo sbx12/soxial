@@ -27,7 +27,17 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.css"
         rel="stylesheet"
         />
-        <link rel="stylesheet" type="text/css" href="{% static 'css/tailwind.css' %}">
+        <!-- Vuetify CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+        
+        <!-- TailwindCSS -->
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+        {# Lottie #}
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <!-- Static Files -->
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/tailwind.css' %}"> -->
 
         {% block extra_cdn %}
             {# Override this in templates to add extra cdns #}
@@ -40,6 +50,17 @@
     <body class="{% block body_class %}{% endblock %}">
         {% include "home/base/navbar.html" %}
 
+        {% if messages %}
+            <div class="container text-center">
+                <strong>Messages:</strong>
+                <ul>
+                    {% for message in messages %}
+                        <li>{{message}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
         {% block content %}{% endblock %}
 
         {% include "home/base/footer.html" %}
@@ -49,9 +70,11 @@
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"
         ></script>
+        <!-- Vue -->
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script type="text/javascript" src="{% static 'js/nineone_schedule.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+        <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}

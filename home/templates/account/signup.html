@@ -1,0 +1,31 @@
+{% extends "home/base/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% load tailwind_filters %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+
+<div class="container-full">
+    <div class="text-center my-2">
+        <h1 class="text-4xl">{% trans "Sign Up" %}</h1>
+        <p class="text-lg">{% blocktrans %}Already have an account? Then please <a class="text-blue-400" href="{{ login_url }}">Sign In</a>.{% endblocktrans %}</p>
+    </div>
+    
+    <div class="container">
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {{ form |crispy }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button class="bg-green-400 p-2 text-1xl w-full my-2"  type="submit">{% trans "Sign Up" %} &raquo;</button>
+          </form>
+    </div>
+
+</div>
+
+{% endblock %}
