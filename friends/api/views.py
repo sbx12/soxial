@@ -17,6 +17,7 @@ from friends.api.serializers import (
 
 
 class FriendList(generics.ListAPIView):
+    queryset = Friend.objects.all()
     """ Get All of Users Friends """
     def list(self, request):
         print("API: Get User Friends")
