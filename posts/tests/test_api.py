@@ -11,7 +11,7 @@ from rest_framework.test import APITestCase
 from django.contrib.auth import get_user_model
 from posts.models import Post, Comment, Tag
 
-IMAGE_URL = "M:\Coding\Django\Soxial\soxial\soxial\media\profile\images\Kidrobot.jpeg"
+IMAGE_URL = "YOURIMAGELINKHERE"
 MOCK_IMAGE = tempfile.NamedTemporaryFile(suffix=".jpg").name
 DESCRIPTION = "lorem ep sum"
 DESCRIPTION2 = "Xorem sp uum"

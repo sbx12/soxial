@@ -5,7 +5,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from posts.models import Post, Comment
 
-IMAGE_URL = "M:\Coding\Django\Soxial\soxial\soxial\media\profile\images\Kidrobot.jpeg"
+IMAGE_URL = "YOURIMAGELINKHERE"
 DESCRIPTION = "lorem ep sum"
 COMMENT = "lorem ep sum"
 
