@@ -51,8 +51,7 @@
         {% include "home/base/navbar.html" %}
 
         {% if messages %}
-            <div class="container text-center">
-                <strong>Messages:</strong>
+            <div class="container text-center bg-gray-100 text-lg rounded-sm">
                 <ul>
                     {% for message in messages %}
                         <li>{{message}}</li>
