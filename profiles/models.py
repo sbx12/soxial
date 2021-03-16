@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext
+from django.urls import reverse
+
+# Models
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
@@ -21,3 +24,5 @@ class Profile(models.Model):
             "last_name": self.user.last_name,
         }
     
+    def get_absolute_url(self):
+        return reverse('public-profile', kwargs={'pk': self.user.pk})
