@@ -29,7 +29,18 @@ class PostProfileList(generics.ListAPIView):
     """List all USER Posts"""
     def list(self, request):
         print("API: Get Profile Post List")
-        queryset = get_list_or_404(self.get_queryset().filter(id=self.request.user.pk))
+        queryset = get_list_or_404(self.get_queryset().filter(user=self.request.user.pk))
+        serializer = PostSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    
+class PostPublicProfileList(generics.ListAPIView):
+    queryset = Post.objects.get_posts()
+    
+    """List all USER Posts"""
+    def list(self, request, pk):
+        print("API: Get Public Profile Post List")
+        queryset = get_list_or_404(self.get_queryset().filter(user=pk))
         serializer = PostSerializer(queryset, many=True)
         return Response(serializer.data)
 

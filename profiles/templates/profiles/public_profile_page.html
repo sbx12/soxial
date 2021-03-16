@@ -1,0 +1,126 @@
+{% extends "home/base/base.html" %}
+{% load static %}
+
+{% block title %}{{user.username}}{% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block content %}
+
+<div class="container-full" id="app_profile">
+    <div class="container-full mx-auto my-5 p-5">
+        <div class="md:flex no-wrap md:-mx-2 ">
+            <!-- Left Side -->
+            <div class="w-full md:w-2/12 md:mx-2">
+                <!-- Profile Card -->
+                <div class="bg-white p-3 border-t-4 border-green-400">
+                    <div class="image overflow-hidden">
+                        <img class="h-auto w-full mx-auto" :src="[[user.profile.profile_image]]" alt="">
+                    </div>
+                    <div v-if="loading">
+                        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_ctopYC.json"
+                            background="transparent" speed="1" style="height: 20vw;" autoplay></lottie-player>
+                    </div>
+                    <div v-else>
+                        <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">[[user.username]]</h1>
+                        <h3 class="text-gray-600 font-lg text-semibold leading-6">[[user.profile.bio]]</h3>
+                        <a class="text-gray-400 font-sm" :href="[[user.profile.website_url]]">WEBSITE</a>
+                    </div>
+                </div>
+                <!-- End of profile card -->
+
+                <!-- Friends card -->
+                <div class="bg-white p-3 hover:shadow">
+                    <div class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
+                        <span class="text-green-500">
+                            <svg class="h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </span>
+                        <span>Friends</span>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <div v-for="friend in friends">
+                            <div class="text-center my-2">
+                                <img class="h-16 w-16 rounded-full mx-auto"
+                                    :src="[[friend.to_user.profile.profile_image]]" alt="">
+                                <a :href="[[friend.to_user.profile.profile_url]]" class="text-main-color">[[friend.to_user.username]]</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End of friends card -->
+            </div>
+            <!-- Right Side -->
+
+            <!-- Profile Post BEGIN -->
+            <div class="w-full md:w-10/12 mx-2 h-64">
+                <post-function inline-template>
+                    <div v-if="loading">
+                        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_ctopYC.json"
+                            background="transparent" speed="1" style="height: 20vw;" autoplay></lottie-player>
+                    </div>
+                    <div v-else>
+                        <div v-if="errored" class="text-center">
+                            <p class="text-xl"> NO POST</p>
+                        </div>
+    
+                        <div v-for="post in posts">
+                            <section class="text-gray-700 body-font">
+                                <div
+                                    class="container-full px-1 lg:w-9/12 my-4 mx-auto lg:px-2 z-20 rounded-sm  bg-gradient-to-r from-black to-gray-800">
+                                    <div class="grid-cols-1">
+                                        <div class="text-gray-100 ">
+                                            <div class="p-2">
+                                                <img class="object-scale-down object-center h-48  md:h-80 w-full rounded"
+                                                    :src="[[post.image]]" alt="content">
+                                                <div class="flex justify-center gap-x-16 my-4 text-2xl">
+                                                    <i type="button"
+                                                        class="fas fa-bolt hover:text-green-500">[[post.powerup.length]]</i>
+                                                    <i type="button" class="fas fa-user-friends"></i>
+                                                    <i type="button"
+                                                        class="fas fa-comment hover:text-blue-500">[[post.comment_set.length]]</i>
+                                                </div>
+                                                <h2
+                                                    class="my-2 text-lg font-semibold text-white lg:text-2xl title-font">
+
+                                                </h2>
+                                                <p class="mb-4 text-base font-semibold leading-relaxed">
+                                                    [[post.description]]
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                </post-function>
+
+                <!-- Profile Post END -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<!--
+<script type="module">
+    import postFunction from "{% static '/js/posts/post_functions.js' %}"
+    console.log(postFunction.getPosts())
+</script>
+-->
+
+<script>
+var userid = {{user.pk}}
+
+</script>
+
+<script src="{% static '/js/posts/public_post_component.js' %}"></script>
+<script src="{% static '/js/profiles/public_profile_page.js' %}"></script>
+{% endblock %}
