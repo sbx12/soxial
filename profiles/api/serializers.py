@@ -8,15 +8,25 @@ from dj_rest_auth.serializers import UserDetailsSerializer
 from profiles.models import Profile
 
 class ProfileSerializer(serializers.ModelSerializer):
+    profile_url = serializers.SerializerMethodField('get_profile_url')
+    
+    def get_profile_url(self, obj):
+        return obj.get_absolute_url()
+    
     class Meta:
         model = Profile
         exclude = ['user', 'created_on', 'updated_on']
         
 
 class ProfileMinSerialzer(serializers.ModelSerializer):
+    profile_url = serializers.SerializerMethodField('get_profile_url')
+    
+    def get_profile_url(self, obj):
+        return obj.get_absolute_url()
+    
     class Meta:
         model = Profile
-        fields = ['id', 'profile_image']
+        fields = ['id', 'profile_image', 'profile_url']
         
 
 class EmailAddressSerializer(serializers.ModelSerializer):
