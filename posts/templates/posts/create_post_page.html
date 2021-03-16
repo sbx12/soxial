@@ -1,0 +1,32 @@
+{% extends "home/base/base.html" %}
+{% load static %}
+
+{% load tailwind_filters %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block content %}
+
+<div class="container-full">
+    <div class="container">
+        <form class="" method="POST" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          
+          {{ form |crispy }}
+
+          <div>
+            <button class="primaryAction bg-green-400 p-2 text-1xl w-full my-2" type="submit">Create Post</button>
+          </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+
+</script>
+<script src="{% static '/js/posts/post_component.js' %}"></script>
+{% endblock %}
