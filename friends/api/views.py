@@ -25,6 +25,15 @@ class FriendList(generics.ListAPIView):
         serializer = FriendSerializer(queryset, many=True)
         return Response(serializer.data)
     
+class PublicFriendList(generics.ListAPIView):
+    queryset = Friend.objects.all()
+    """ Get All of Users Friends """
+    def list(self, request, pk):
+        print("API: Get Public User Friends")
+        queryset = get_list_or_404(Friend.objects.get_friends(pk))
+        serializer = FriendSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
 
 class FriendDetail(APIView):
     """GET and PUT and Delete for Single Friend Object"""
