@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import (
-    ProfileView
-)
+from profiles import views
 
 urlpatterns = [
-    path('', ProfileView.as_view(), name="profile"),
+    path('', views.ProfileView.as_view(), name="profile"),
+    path('<int:pk>', views.PublicProfileView.as_view(), name="public-profile"),
 ]

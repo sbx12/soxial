@@ -46,7 +46,7 @@
                             <div class="text-center my-2">
                                 <img class="h-16 w-16 rounded-full mx-auto"
                                     :src="[[friend.to_user.profile.profile_image]]" alt="">
-                                <a href="#" class="text-main-color">[[friend.to_user.username]]</a>
+                                <a :href="[[friend.to_user.profile.profile_url]]" class="text-main-color">[[friend.to_user.username]]</a>
                             </div>
                         </div>
 
@@ -58,10 +58,12 @@
 
             <!-- Profile Post BEGIN -->
             <div class="w-full md:w-10/12 mx-2 h-64">
+                <div class="text-center">
+                    <a type="button" href="{% url 'create-post' %}"
+                    class="w-full p-2 text-lg  font-bold rounded-sm bg-green-400">
+                    CREATE POST +</a>
+                </div>
 
-                <div type="button"
-                    class="w-full text-center text-lg  font-bold rounded-sm bg-gradient-to-r from-green-200 to-green-500">
-                    CREATE POST</div>
                 <post-function inline-template>
                     <div v-if="loading">
                         <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_ctopYC.json"
